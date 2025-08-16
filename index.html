@@ -22,7 +22,6 @@
     button.secondary{background:#e9eefc;color:#08306b}
     .notice{font-size:13px;color:#b33;margin-top:8px}
     @media (max-width:640px){.field{flex:1 1 100%}}
-    .success{background:#e6ffef;border:1px solid #b6f0d0;padding:10px;border-radius:6px;color:#0a6b3a;margin-top:12px}
   </style>
 </head>
 <body>
@@ -34,7 +33,7 @@
       <div class="row">
         <div class="field">
           <label for="studentName">Full name *</label>
-          <input id="studentName" name="studentName" type="text" required placeholder="e.g. Aneesh Kumar KP">
+          <input id="studentName" name="studentName" type="text" required placeholder="e.g. Arjun Santhosh">
         </div>
 
         <div class="field">
@@ -48,12 +47,12 @@
 
         <div class="field">
           <label for="age">Age *</label>
-          <input id="age" name="age" type="number" min="3" max="25" required placeholder="e.g. 6, 16">
+          <input id="age" name="age" type="number" min="3" max="25" required>
         </div>
 
         <div class="field">
           <label for="className">Class *</label>
-          <input id="className" name="className" type="text" required placeholder="e.g. 5, 7">
+          <input id="className" name="className" type="text" required placeholder="e.g. 5th, 10th">
         </div>
 
         <div class="field">
@@ -76,7 +75,7 @@
           <span class="small">Digits only (8–15). Don't add + or spaces.</span>
         </div>
         <div class="field">
-          <label for="fatherOcc">Father's occupation *</label>
+          <label for="fatherOcc">Father's occupation</label>
           <input id="fatherOcc" name="fatherOcc" type="text">
         </div>
       </div>
@@ -93,7 +92,7 @@
           <span class="small">Digits only (8–15). Don't add + or spaces.</span>
         </div>
         <div class="field">
-          <label for="motherOcc">Mother's occupation *</label>
+          <label for="motherOcc">Mother's occupation</label>
           <input id="motherOcc" name="motherOcc" type="text">
         </div>
       </div>
@@ -129,7 +128,7 @@
       </div>
 
       <div style="margin-top:16px">
-        <label><input id="declaration" name="declaration" type="checkbox" required> I DECLARED THAT the information provided above is true and accurate. *</label>
+        <label><input id="declaration" name="declaration" type="checkbox" required> I DECLARE THAT the information provided above is true and accurate. *</label>
       </div>
 
       <div class="actions">
@@ -137,62 +136,66 @@
         <button type="button" class="secondary" id="clearBtn">Clear form</button>
       </div>
 
+      <!-- Processing message -->
+      <div id="processingMsg" style="display:none; margin-top:15px; font-size:15px; color:#0b6efd;">
+        ⏳ Submitting your registration, please wait...
+      </div>
+
       <div id="messageArea" role="status"></div>
     </form>
   </div>
 
   <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxvyRRQfG6mU6q90ErFhLCPrD7bSPA6ljOsvBnM2GS6zma0uqtRereJb5nxuNSkuA5O/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyrHQaRy40a-v0zE6JSO2y3_v69hJIF-3BZ1pTfwsTUHDZ6sz_0K5rmPMBiOPCKhyM2Lg/exec";
 
     // Clear form
     document.getElementById('clearBtn').addEventListener('click', () => {
       if (!confirm('Clear the form?')) return;
       document.getElementById('regForm').reset();
       document.getElementById('messageArea').innerHTML='';
+      document.getElementById('processingMsg').style.display='none';
     });
 
-    // Validate before submit
+    // Submit form
     document.getElementById('regForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const form = e.target;
 
-      // simple pattern checks for whatsapp numbers (digits only)
+      // Show processing message
+      document.getElementById('processingMsg').style.display = 'block';
+
+      // Validate WhatsApp numbers
       const phoneFields = ['fatherWhats','motherWhats'];
       for (const id of phoneFields) {
         const el = document.getElementById(id);
         if (!/^[0-9]{8,15}$/.test(el.value.trim())) {
           el.focus();
           showMessage('Please enter a valid WhatsApp number (8–15 digits) for ' + el.previousElementSibling.textContent, true);
+          document.getElementById('processingMsg').style.display = 'none';
           return;
         }
       }
 
-      // Check checkbox
+      // Check declaration
       if (!document.getElementById('declaration').checked) {
         showMessage('You must agree to the declaration before submitting.', true);
+        document.getElementById('processingMsg').style.display = 'none';
         return;
       }
 
-      // Send form data to Google Apps Script
+      // Send data to Google Apps Script
       fetch(WEB_APP_URL, {
         method: "POST",
         body: new FormData(form),
       })
       .then(response => response.text())
       .then(result => {
-        showMessage('Registration submitted successfully!', false);
-
-        const success = document.createElement('div');
-        success.className='success';
-        success.textContent = 'Thank you — registration received.';
-        const area = document.getElementById('messageArea');
-        area.innerHTML = '';
-        area.appendChild(success);
-
-        console.log("Server response:", result);
+        // Redirect to thank you page
+        window.location.href = "thank_you.html";
       })
       .catch(error => {
         showMessage('Error submitting registration. Please try again.', true);
+        document.getElementById('processingMsg').style.display = 'none';
         console.error("Error:", error);
       });
     });
@@ -202,8 +205,8 @@
       area.innerHTML = '<div class="'+(isError?'notice':'small')+'">'+msg+'</div>';
     }
 
+    // Autofocus first field
     window.addEventListener('load', ()=> document.getElementById('studentName').focus());
   </script>
 </body>
 </html>
-
