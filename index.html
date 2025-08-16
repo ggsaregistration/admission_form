@@ -33,7 +33,7 @@
       <div class="row">
         <div class="field">
           <label for="studentName">Full name *</label>
-          <input id="studentName" name="studentName" type="text" required placeholder="e.g. Arjun Santhosh">
+          <input id="studentName" name="studentName" type="text" required placeholder="e.g. Name initial">
         </div>
 
         <div class="field">
@@ -130,6 +130,9 @@
       <div style="margin-top:16px">
         <label><input id="declaration" name="declaration" type="checkbox" required> I DECLARE THAT the information provided above is true and accurate. *</label>
       </div>
+      <div style="margin-top:16px">
+        <label><input id="declaration" name="declaration" type="checkbox" required> I DECLARE THAT the information provided above is true and accurate. *</label>
+      </div>
 
       <div class="actions">
         <button type="submit">Submit registration</button>
@@ -146,8 +149,7 @@
   </div>
 
   <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyrHQaRy40a-v0zE6JSO2y3_v69hJIF-3BZ1pTfwsTUHDZ6sz_0K5rmPMBiOPCKhyM2Lg/exec";
-
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxvyRRQfG6mU6q90ErFhLCPrD7bSPA6ljOsvBnM2GS6zma0uqtRereJb5nxuNSkuA5O/exec";
     // Clear form
     document.getElementById('clearBtn').addEventListener('click', () => {
       if (!confirm('Clear the form?')) return;
@@ -210,3 +212,4 @@
   </script>
 </body>
 </html>
+
