@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Student Regular Registration</title>
+  <style>
+    :root{--accent:#0b6efd;--muted:#666;--bg:#f7f9fc}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);margin:0;padding:20px}
+    .container{max-width:900px;margin:0 auto;background:#fff;padding:22px;border-radius:10px;box-shadow:0 6px 18px rgba(9,30,66,0.08)}
+    h1{margin:0 0 12px;font-size:22px}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    form .row{display:flex;flex-wrap:wrap;gap:12px}
+    .field{flex:1 1 220px;display:flex;flex-direction:column}
+    label{font-size:13px;color:#222;margin-bottom:6px}
+    input[type="text"],input[type="number"],select,textarea{padding:10px;border:1px solid #d6dde6;border-radius:6px;font-size:14px}
+    .small{font-size:12px;color:var(--muted)}
+    .inline{display:flex;gap:12px;align-items:center}
+    .radios{display:flex;gap:14px;align-items:center;margin-top:6px}
+    .actions{display:flex;gap:10px;align-items:center;margin-top:18px}
+    button{background:var(--accent);color:#fff;padding:10px 14px;border:0;border-radius:8px;cursor:pointer}
+    button.secondary{background:#e9eefc;color:#08306b}
+    .notice{font-size:13px;color:#b33;margin-top:8px}
+    @media (max-width:640px){.field{flex:1 1 100%}}
+    .success{background:#e6ffef;border:1px solid #b6f0d0;padding:10px;border-radius:6px;color:#0a6b3a;margin-top:12px}
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <h1>Student Registration Form</h1>
+    <p class="lead">Please fill all required fields. Fields marked with * are required.</p>
+
+    <form id="regForm" novalidate>
+      <div class="row">
+        <div class="field">
+          <label for="studentName">Full name *</label>
+          <input id="studentName" name="studentName" type="text" required placeholder="e.g. Aneesh Kumar KP">
+        </div>
+
+        <div class="field">
+          <label for="place">Place to play *</label>
+          <select id="place" name="place" required>
+            <option value="">-- Select --</option>
+            <option value="Kannur">Kannur</option>
+            <option value="Thalipparamba">Thalipparamba</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="age">Age *</label>
+          <input id="age" name="age" type="number" min="3" max="25" required placeholder="e.g. 6, 16">
+        </div>
+
+        <div class="field">
+          <label for="className">Class *</label>
+          <input id="className" name="className" type="text" required placeholder="e.g. 5, 7">
+        </div>
+
+        <div class="field">
+          <label for="school">School *</label>
+          <input id="school" name="school" type="text" required placeholder="School name">
+        </div>
+      </div>
+
+      <hr style="margin:16px 0;border:none;border-top:1px solid #eef3fb">
+
+      <h3 style="margin:0 0 8px;font-size:16px">Father's details</h3>
+      <div class="row">
+        <div class="field">
+          <label for="fatherName">Father's name *</label>
+          <input id="fatherName" name="fatherName" type="text" required>
+        </div>
+        <div class="field">
+          <label for="fatherWhats">Father's WhatsApp no. *</label>
+          <input id="fatherWhats" name="fatherWhats" type="text" inputmode="tel" pattern="\d{8,15}" placeholder="Only digits, 8-15 chars" required>
+          <span class="small">Digits only (8–15). Don't add + or spaces.</span>
+        </div>
+        <div class="field">
+          <label for="fatherOcc">Father's occupation *</label>
+          <input id="fatherOcc" name="fatherOcc" type="text">
+        </div>
+      </div>
+
+      <h3 style="margin:14px 0 8px;font-size:16px">Mother's details</h3>
+      <div class="row">
+        <div class="field">
+          <label for="motherName">Mother's name *</label>
+          <input id="motherName" name="motherName" type="text" required>
+        </div>
+        <div class="field">
+          <label for="motherWhats">Mother's WhatsApp no. *</label>
+          <input id="motherWhats" name="motherWhats" type="text" inputmode="tel" pattern="\d{8,15}" placeholder="Only digits, 8-15 chars" required>
+          <span class="small">Digits only (8–15). Don't add + or spaces.</span>
+        </div>
+        <div class="field">
+          <label for="motherOcc">Mother's occupation *</label>
+          <input id="motherOcc" name="motherOcc" type="text">
+        </div>
+      </div>
+
+      <hr style="margin:16px 0;border:none;border-top:1px solid #eef3fb">
+
+      <div class="row">
+        <div class="field">
+          <label>Registration fee paid *</label>
+          <div class="radios">
+            <label><input type="radio" name="regFeePaid" value="Yes" required> Yes</label>
+            <label><input type="radio" name="regFeePaid" value="No"> No</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="feeStructure">Fee structure *</label>
+          <select id="feeStructure" name="feeStructure" required>
+            <option value="">-- Select --</option>
+            <option value="Annually">Annually</option>
+            <option value="Half-Yearly">Half-Yearly</option>
+            <option value="Quarterly">Quarterly</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Fee paid *</label>
+          <div class="radios">
+            <label><input type="radio" name="feePaid" value="Yes" required> Yes</label>
+            <label><input type="radio" name="feePaid" value="No"> No</label>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px">
+        <label><input id="declaration" name="declaration" type="checkbox" required> I DECLARED THAT the information provided above is true and accurate. *</label>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Submit registration</button>
+        <button type="button" class="secondary" id="clearBtn">Clear form</button>
+      </div>
+
+      <div id="messageArea" role="status"></div>
+    </form>
+  </div>
+
+  <script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxvyRRQfG6mU6q90ErFhLCPrD7bSPA6ljOsvBnM2GS6zma0uqtRereJb5nxuNSkuA5O/exec";
+
+    // Clear form
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      if (!confirm('Clear the form?')) return;
+      document.getElementById('regForm').reset();
+      document.getElementById('messageArea').innerHTML='';
+    });
+
+    // Validate before submit
+    document.getElementById('regForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = e.target;
+
+      // simple pattern checks for whatsapp numbers (digits only)
+      const phoneFields = ['fatherWhats','motherWhats'];
+      for (const id of phoneFields) {
+        const el = document.getElementById(id);
+        if (!/^[0-9]{8,15}$/.test(el.value.trim())) {
+          el.focus();
+          showMessage('Please enter a valid WhatsApp number (8–15 digits) for ' + el.previousElementSibling.textContent, true);
+          return;
+        }
+      }
+
+      // Check checkbox
+      if (!document.getElementById('declaration').checked) {
+        showMessage('You must agree to the declaration before submitting.', true);
+        return;
+      }
+
+      // Send form data to Google Apps Script
+      fetch(WEB_APP_URL, {
+        method: "POST",
+        body: new FormData(form),
+      })
+      .then(response => response.text())
+      .then(result => {
+        showMessage('Registration submitted successfully!', false);
+
+        const success = document.createElement('div');
+        success.className='success';
+        success.textContent = 'Thank you — registration received.';
+        const area = document.getElementById('messageArea');
+        area.innerHTML = '';
+        area.appendChild(success);
+
+        console.log("Server response:", result);
+      })
+      .catch(error => {
+        showMessage('Error submitting registration. Please try again.', true);
+        console.error("Error:", error);
+      });
+    });
+
+    function showMessage(msg, isError){
+      const area = document.getElementById('messageArea');
+      area.innerHTML = '<div class="'+(isError?'notice':'small')+'">'+msg+'</div>';
+    }
+
+    window.addEventListener('load', ()=> document.getElementById('studentName').focus());
+  </script>
+</body>
+</html>
+
